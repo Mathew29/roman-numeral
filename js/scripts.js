@@ -11,7 +11,7 @@ function conversion(number) {
   var numArray = turnNumberToArray(number)
   if (number > 3999) {
     return "not a roman numeral"
-  } else if (number >= 1000){
+  } else if (number >= 1000) {
     var thousands = parseInt(numArray[0]);
     var hundreds = parseInt(numArray[1]);
     var tens = parseInt(numArray[2]);
@@ -20,7 +20,7 @@ function conversion(number) {
     var roman2 = tensDigit(tens);
     var roman3 = hundredsDigit(hundreds);
     var roman4 = thousandsDigit(thousands);
-    console.log(roman4+roman3+roman2+roman1);
+    var finishedRoman = roman4+roman3+roman2+roman1;
   } else if (number >= 100){
     var hundreds = parseInt(numArray[0]);
     var tens = parseInt(numArray[1]);
@@ -28,52 +28,47 @@ function conversion(number) {
     var roman1 = onesDigit(ones);
     var roman2 = tensDigit(tens);
     var roman3 = hundredsDigit(hundreds);
-    console.log(roman3+roman2+roman1)
+    var finishedRoman = roman3+roman2+roman1;
   } else if (number >= 10){
     var tens = parseInt(numArray[0]);
     var ones = parseInt(numArray[1]);
     var roman1 = onesDigit(ones);
     var roman2 = tensDigit(tens);
-    console.log(roman2+roman1);
+    var finishedRoman = roman2+roman1;
   } else if (number > 0){
     var ones = parseInt(numArray[0]);
     var roman1 = onesDigit(ones);
-    console.log(roman1);
+    var finishedRoman = roman1;
   } else {
     return "not a roman numeral"
   }
-
-  // var finishedRoman = "roman4+roman3+roman2+roman1";
-  //return finishedRoman;
+  return finishedRoman;
 }
 
 
 function turnNumberToArray(number) {
 
   var numArray = (""+number).split("");
-
-  console.log(numArray);
   return numArray;
 }
 
 function onesDigit(number) {
-  console.log(number);
   var onesDigitArray = [];
   if(number === 4) {
-    onesDigitArray.push("IV");
+    onesDigitArray += "IV";
   }
   else if(number === 9) {
-    onesDigitArray.push("IX");
+    onesDigitArray +="IX";
   }
   else if (number >= 5) {
-    onesDigitArray.push("V");
+    onesDigitArray +="V";
     for (var a = 0; a < number - 5; a++) {
-      onesDigitArray.push("I");
+      onesDigitArray +="I";
     }
   }
   else {
     for (var a = 0; a < number; a++) {
-      onesDigitArray.push("I");
+      onesDigitArray +="I";
     }
   }
   return onesDigitArray;
@@ -81,52 +76,58 @@ function onesDigit(number) {
 function tensDigit(number) {
   var tensDigitArray = [];
   if(number === 4) {
-    tensDigitArray.push("XL");
+    tensDigitArray +="XL";
   }
   else if(number === 9) {
-    tensDigitArray.push("XC");
+    tensDigitArray +="XC";
   } else if (number >= 5) {
-    tensDigitArray.push("L");
+    tensDigitArray +="L";
     for (var a = 0; a < number - 5; a++) {
-      tensDigitArray.push("X");
+      tensDigitArray +="X";
     }
   } else {
       for (var a = 0; a < number; a++) {
-        tensDigitArray.push("X");
+        tensDigitArray +="X";
       }
   }
   return tensDigitArray;
 }
 function hundredsDigit(number) {
-  console.log(number)
   var hundredsDigitArray = [];
   if(number === 4) {
-    hundredsDigitArray.push("CD");
+    hundredsDigitArray +="CD";
   }
   else if(number === 9) {
-    hundredsDigitArray.push("CM");
+    hundredsDigitArray +="CM";
   } else if (number >= 5) {
-    hundredsDigitArray.push("D");
+    hundredsDigitArray +="D";
     for (var b = 0; b < number - 5; b++) {
-      hundredsDigitArray.push("C");
+      hundredsDigitArray +="C";
     }
   } else {
     for (var b = 0; b < number; b++){
-      hundredsDigitArray.push("C")
+      hundredsDigitArray +="C";
     }
   }
   return hundredsDigitArray
 }
 function thousandsDigit(number) {
-  console.log(number);
   var thousandsDigitArray = []
   for (var a = 0; a < number; a++) {
-    thousandsDigitArray.push("M")
+    thousandsDigitArray += "M";
   }
   return thousandsDigitArray;
 };
 
 //user interface
-// var number = $("input#number").val;
-var number = 1444;
-conversion(number);
+$(document).ready(function() {
+  $("#user").submit(function(event) {
+    event.preventDefault();
+    var number = $("input#number").val();
+    var result = conversion(number);
+    $("#result").show();
+    $("#result").text(result);
+
+
+  });
+});
